@@ -12,3 +12,4 @@ output "grapes" {
 # other way is 
 output "apple" {
     value = "Apple color is ${var.fruits["apple"]["color"]} and ${var.fruits["apple"]["metric"]} price is 4{var.fruits["apple"]["price"]}"
+    }
