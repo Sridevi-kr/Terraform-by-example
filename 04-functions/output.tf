@@ -10,6 +10,8 @@ output "grapes" {
 }
 
 # other way is 
-output "apple" {
-    value = "Apple color is ${var.fruits["apple"]["color"]} and ${var.fruits["apple"]["metric"]} price is 4{var.fruits["apple"]["price"]}"
-    }
+# output "apple" {
+#    value = "Apple color is ${var.fruits["apple"]["color"]} and ${var.fruits["apple"]["metric"]} price is ${var.fruits["apple"]["price"]}"
+#    }
+
+# There can be only one output definition. Two output with sane name throws error
