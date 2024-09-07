@@ -2,9 +2,11 @@ If you see an error saying disk space issue, mitigate using the following way:
 
 Error :
 
-	!!! GoCD Server's database is running on low disk space18 Aug, 2024 at 23:35:24 Local TimeGoCD has less than 1024M of disk space available to it.
-		
-    !!! GoCD Server's artifact repository is running low on disk space18 Aug, 2024 at 23:35:24 Local TimeGoCD has less than 1024M of disk space available to it
+	Error: Failed to install provider
+│ 
+│ Error while installing hashicorp/aws v5.65.0: write
+│ .terraform/providers/registry.terraform.io/hashicorp/aws/5.65.0/linux_amd64/terraform-provider-aws_v5.65.0_x5:
+│ no space left on device
 
 Ensure the selected server is t3.small and that has a minimum of 30gb disk
 If not, shutdown the server and increate the disk size to 30gb

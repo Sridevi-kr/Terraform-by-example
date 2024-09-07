@@ -125,3 +125,68 @@ Terraform init and what all it can do ?
 How to correct the style or format automatically in terraform
 
         $ terraform fmt --recursive 
+
+In case if you encouter no space left error on /home then follow the process enclosed here:
+
+check storage_fix.mb in this repo
+
+Supported Datatypes In Terraform
+
+    # 1) Numbers 
+    # 2) Boolents 
+    # 3) Strings        ( Only true false and yes no are not supported )
+
+Variable types :
+
+    1) Dictionary ( key - value pairs )
+    2) List       ( key with multiple values )
+    3) Map        ( a key with multiple key-values pairs )
+When and how to use quotes in terraform ?
+
+    1) Strings are always supposed to be enclosed in double-quotes - "sample" 
+    2) Numbers and booleans don't need to be enclosed in strings 
+    3) Single quotes are not supported in terraform 
+Variable notations, when to use $ and not to use $ :
+
+    var.sample    : use this only if this is not in between a set of strings 
+    {var.sample}  : use this if your varaible has to be enclosed in a set of strings
+What are the files that ends with *.tfvars vs *.tf
+
+1) fileName.tf      : files with terraform code 
+2) terraform.tfvars : files with values of the variables.   ( This is the default file )
+!!! In terraform, terraform.tfvars is the default file that would be picked by default.
+
+    $ terraform init 
+    $ terraform plan  --var-file=prod.tfvars 
+    $ terraform apply --var-file=prod.tfvars -auto-approve
+IMP Point :
+
+1) Typically values that are common to all the environments are placed on terraform.tfvars 
+2) Values that are environment specific are placed on dev.tfvars or prod.tfvars
+
+What is *.auto.tfvars ?
+1) values that are declared in *.auto.tfvars don't have to be mentioned while running tf command and these will be picked by default.
+
+Functions in terraform
+
+    1) Functions in terraform are supplied by hashicorp 
+    2) Each and every function has an aciton 
+    3) We cannot make our own functions, we just consume them
+
+    Ref: https://developer.hashicorp.com/terraform/language/functions
+Exception handling in terraform
+
+1) If you don't declare a key and if you try to use it, it returns a value
+2) We want to make sure, if values are not delcared, we need to pick a default value.
+3) using  `lookup` funciton in terraform we can do efficiently when dealing map variables 
+When we are dealing at scale, for-each is going to make things handy and helps in efficient way to organize the code.
+
+The for_each meta-argument accepts a map or a set of strings, and creates an instance for each item in that map or set. Each instance has a distinct infrastructure object associated with it, and each is separately created, updated, or destroyed when the configuration is applied.
+
+Ref: https://developer.hashicorp.com/terraform/language/meta-arguments/for_each
+For better learning, always ensure these 4 pillars are covered
+
+    1) Conditions             ( This is like a if else condition and it don't offer multiple else condions )
+    2) Variables 
+    3) Functions 
+    4) Loops 
