@@ -1,0 +1,1 @@
+colors = ["orange", "green", "blue"] # step-1
