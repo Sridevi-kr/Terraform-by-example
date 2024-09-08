@@ -190,3 +190,79 @@ For better learning, always ensure these 4 pillars are covered
     2) Variables 
     3) Functions 
     4) Loops 
+
+Conditional expressions in terraform
+
+    condition ? true_val : false_val
+
+Typically when we are writing terraform, we need to write this in such a way where the code is so agnoistic to project and it can be ised in any projects.
+
+Modules In Terrraform will helps in writing code dry and the same time reusable.
+
+Where can I get the modules ?
+
+1) We can get lot of readymade modules in `registry.terraform.io` (not much controlled) or   
+2) We can make our own modules    ( More controlled approach )
+    > In terraform, everything is a module and the folder where you run the terraform commands is root module 
+    > Root module:
+
+        Every Terraform configuration has at least one module, known as the root module. The root module is made up of the resources defined in the main working directory's .tf files
+
+    Usage of terraform modules comes with responsibility and sometimes code complications and length.
+How are we going to manage modules ?
+
+1) We will create our own modules on our repository 
+2) We will source them to our code.
+Backend / Child Module vs root module
+
+1) root module    : That's the folder or path where we are calling the actual module and here is where we run the terraform commands 
+2) backend module : Actual modules code ( child module : we are going to maintain on a separate repository )
+Passing the info from root-module to backend module
+
+Rule of thumb, if you're using a variable in root module, that empty variable has to be declared in the child module, before you use and that where the data-transfer will happen. ( that's a way of receiving the data from the root module )
+
+    1) Declare the variable in the root module
+    2) Define the value for that in the root module
+    3) Declare am empty variable with the same name 
+    4) Then use it in the backend module
+
+How to retrieve the info from backend to root module ?
+
+1) We have code in the backend module that creates EC2 and in the root module, we would like to print the ip-address of the instance 
+2) This goes by outputs
+Outputs :
+
+1) Outputs in terraform are not just for printing the information 
+2) They also play a role in transferring the information from one module to other module.
+This relation is very inportant while passing the information between the modules :
+
+    1) Inputs provided in *.tfvars 
+    2) Declare associated empty variables in teh root-module ( vars.tf )
+    3) Send the input to the module in the root-module 
+    4) Declare the empty varaible in the backend module to get the value from root 
+    5) Use the variable in the child module
+Terraform Goals to achieve close our problem statements :
+    1) EC2 instances should be created & while the instances instances comes up - ansible should be triggered to have the configuation management and this will complete the app to come up.  ( Terraform calling ansible scripts )
+    2) Associated DNS Records should be created.
+
+How terraform can read the information about the resources that are already created and these 3 values I don't want to hardcode.
+
+    variable "ami" {
+    default = "ami-0fcc78c828f981df2"
+    }
+
+    variable "vpc_security_group_ids" {
+    default = ["sg-08c9eb09595f5de07"] # Please don't copy this, use as per the b58-sg that you've created.
+    }
+
+    variable "zone_id" {
+    default = "Z05544242107X3QLYUZ0E" # Please don't copy this, use your own zone's hosted id.
+    }
+
+Datasource : This helps in extracting the information of the existing resources.
+
+For each and every resource we have datasource available in the terraform documentation of the intended resource.
+
+Goal :
+
+As a infra provisioning by terraform, I want terraform to call the ansible playbook and this will run the configuration management and this will maje our application with a single a single click of a button.
