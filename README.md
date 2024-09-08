@@ -230,10 +230,13 @@ How to retrieve the info from backend to root module ?
 
 1) We have code in the backend module that creates EC2 and in the root module, we would like to print the ip-address of the instance 
 2) This goes by outputs
+
+
 Outputs :
 
 1) Outputs in terraform are not just for printing the information 
 2) They also play a role in transferring the information from one module to other module.
+
 This relation is very inportant while passing the information between the modules :
 
     1) Inputs provided in *.tfvars 
